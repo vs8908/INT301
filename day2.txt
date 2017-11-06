@@ -1,0 +1,49 @@
+<?php
+    $errorMSGName = '';
+    $errorMSGEmail = '';
+    $errorMSGMobile = '';
+    $errorMSGUsername = '';
+    $errorMSGPassword = '';
+    $errorMSGDOB = '';
+    $errorMSGForCheck = '';
+    $errorMSGForGender = '';
+    $errorMSGForCountry = '';
+
+    include 'db-create-connection.php';
+    include 'db-destroy-connection.php';
+
+    if(isset($_REQUEST['RegisterBtn']))
+    {
+        $valid = 0;
+        if($_REQUEST['FullName'] != "")
+        {
+            $FullName = $_REQUEST['FullName'];
+            if (!preg_match('/^[a-zA-Z]([A-Za-z ]{1,100})*$/', $FullName) )
+            {
+                $errorMSGName = "<small class='text-danger' id='fn'>name is not valid</small>";
+            }
+            else
+            {
+                $valid++;
+            }
+        }
+        else
+        { 
+            $errorMSGName = "<small class='text-danger' id='fn'>name can't be null</small>";
+        }
+        if($_REQUEST['Email']  != "")
+        {
+            $Email = $_REQUEST['Email'];
+            if (!preg_match('/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i', $Email) )
+            {
+                $errorMSGEmail = "<small class='text-danger' id='em'>email is not valid</small>";
+            }
+            else
+            {
+                $valid++;
+            }
+        } 
+        else
+        {
+            $errorMSGEmail = "<small class='text-danger' id='em'>email can't be null</small>";
+        }
